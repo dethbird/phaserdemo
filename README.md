@@ -10,6 +10,12 @@ Make sure php and apache are installed (along with other libs)
 ```bash
 sudo apt install -y php php-sqlite3 apache2 supervisor npm git vim
 ```
+yarn
+```bash
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+```
 
 ### setup git if needed
 
@@ -59,7 +65,7 @@ sudo vim /etc/apache2/sites-available/000-default.conf
             Order allow,deny
             Allow from all
         </Directory>
-
+    
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
