@@ -76,3 +76,26 @@ sudo rm -rf /var/www/html
 sudo ln -s /home/pi/Code/phaserdemo/public /var/www/html
 sudo systemctl restart apache2
 ```
+
+
+## Development
+
+VSCode SFTP Config
+
+```json
+{
+    "name": "raspberrypi",
+    "host": "raspberrypi",
+    "protocol": "sftp",
+    "port": 22,
+    "username": "pi",
+    "password": "raspberry",
+    "remotePath": "/home/pi/Code/phaserdemo",
+    "uploadOnSave": true,
+    "ignore": [
+        ".vscode",
+        ".git",
+        ".DS_Store"
+    ]
+}
+```

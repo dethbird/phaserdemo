@@ -1,0 +1,15 @@
+{
+    "name": "dethbird/phaserdemo",
+    "description": "phaser.js thingies",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Rishi Satsangi",
+            "email": "rishi.satsangi@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0",
+        "pecee/simple-router": "4.2.0.6"
+    }
+}

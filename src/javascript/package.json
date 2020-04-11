@@ -6,10 +6,16 @@
   "repository": "git@github.com:dethbird/phaserdemo.git",
   "author": "rishi.satsangi@gmail.com",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode development --progress"
+  },
   "dependencies": {
     "phaser": "3.22.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "7",
+    "babel-preset-env": "^1.7.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }
