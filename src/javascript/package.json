@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production --progress",
+    "build:dev": "webpack --config webpack.config.js --mode development --progress",
     "watch": "webpack --config webpack.config.js --mode development --progress --watch"
   },
   "dependencies": {

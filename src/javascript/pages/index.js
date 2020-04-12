@@ -9,7 +9,7 @@ export class Scene1 extends Phaser.Scene {
         this.add.text(100, 100, 'Hello Phaser!', { 
             fill: '#ff0099',
             fontSize: '64px',
-            strokeThickness: '4'
+            strokeThickness: '5'
         })
     }
 }

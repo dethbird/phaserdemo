@@ -5,7 +5,8 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         'production-dependencies': ['phaser'],
-        index: './pages/index.js'
+        'test001': './pages/test001.js',
+        index: './pages/index.js', // keep this last
     },
     output: {
         filename: `[name].js`,
@@ -28,7 +29,7 @@ module.exports = {
     optimization: {
         splitChunks: {
             // include all types of chunks
-            chunks: 'all'
+            chunks: 'async'
         },
         minimizer: [new UglifyJsPlugin({
             sourceMap: true,
