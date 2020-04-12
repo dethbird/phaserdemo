@@ -8,7 +8,7 @@ export class Scene1 extends Phaser.Scene {
         this.add.image(960, 540, 'test-image')
         this.add.text(100, 100, 'Hello Phaser!', { 
             fill: '#ff0099',
-            fontSize: '48px',
+            fontSize: '64px',
             strokeThickness: '4'
         })
     }

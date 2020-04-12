@@ -1,7 +1,6 @@
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
-
-console.log('NODE_ENV = ' + process.env.NODE_ENV)
 
 module.exports = {
     entry: {
@@ -30,7 +29,10 @@ module.exports = {
         splitChunks: {
             // include all types of chunks
             chunks: 'all'
-        }
+        },
+        minimizer: [new UglifyJsPlugin({
+            sourceMap: true,
+        })]
     },
     plugins: [
         new webpack.DefinePlugin({
