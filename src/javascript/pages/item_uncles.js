@@ -156,19 +156,47 @@ export class Scene1 extends Phaser.Scene {
         }
 
         if (waveTween.isPlaying()) {
-            for (const uncle of uncles) {
-                for (var i = 0, len = uncle.slices.length; i < len; i++) {
-                    uncle.slices[i].x = uncle.originX + uncle.offsetX + Math.floor(waveTween.getValue(0) - uncle.slices[i].cx)
-                    uncle.slices[i].setAlpha(Math.random())
-                    
-                    uncle.slices[i].cx++;
-                    if (uncle.slices[i].cx > 16)
-                    {
-                        uncle.slices[i].cx = 0;
+            for (var u = 0, len = uncles.length; u < len; u++) {
+                const uncle = uncles[u]
+                if (currentUncle == u) {
+                    uncle.sprite.setAlpha(0.1)
+                    for (var i = 0, len = uncle.slices.length; i < len; i++) {
+                        uncle.slices[i].x = uncle.originX + uncle.offsetX + Math.floor(waveTween.getValue(0) - uncle.slices[i].cx)
+                        uncle.slices[i].setAlpha(0.3 + Math.random())
+                        
+                        uncle.slices[i].cx++;
+                        if (uncle.slices[i].cx > 16)
+                        {
+                            uncle.slices[i].cx = 0;
+                        }
                     }
                 }
             }
         }
+
+        const changePercent = Math.random()
+        if (changePercent > 0.80) {
+            if (changePercent > 0.80 && changePercent < 0.90) {
+                if (currentUncle < uncles.length) {
+                    uncles[currentUncle].sprite.setAlpha(1)
+                    for (var i = 0, len = uncles[currentUncle].slices.length; i < len; i++) {
+                        uncles[currentUncle].slices[i].setAlpha(0)
+                    }
+                }
+                currentUncle = Math.floor(Math.random() * uncles.length)
+            }
+            if (changePercent > 0.90 && changePercent <= 1) {
+                if (currentUncle < uncles.length) {
+                    uncles[currentUncle].sprite.setAlpha(1)
+                    for (var i = 0, len = uncles[currentUncle].slices.length; i < len; i++) {
+                        uncles[currentUncle].slices[i].setAlpha(0)
+                    }
+                }
+                currentUncle = uncles.length + 1
+            }
+        }
+
+
 
     }
 }
