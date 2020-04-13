@@ -53,10 +53,10 @@ export class Scene1 extends Phaser.Scene {
         // console.log(originalImage)
         tween = this.tweens.add({
             targets: { x: 0, y: 0 },
-            x: 40,
+            x: 32,
             y: 0,
             ease: 'Bounce.easeInOut',
-            duration: 2250,
+            duration: 1000,
             yoyo: true,
             repeat: -1
         })
@@ -67,7 +67,7 @@ export class Scene1 extends Phaser.Scene {
             // console.log(y)
             let slice = this.add.sprite(originalImage.x, originalImage.y, originalImage.key);
             slice.setOrigin(0.5, 0.5)
-            slice.cx = Phaser.Math.Wrap(y * 2, 0, originalImage.width + 1)
+            slice.cx = Phaser.Math.Wrap(y, 0, 32)
 
             slice.setCrop(new Phaser.Geom.Rectangle(0, y * sliceHeight, originalImage.width, sliceHeight));
             // console.log(slice)
@@ -83,11 +83,12 @@ export class Scene1 extends Phaser.Scene {
             // image.y = originalImage.y + tween.getValue(1)
             for (var i = 0, len = imageSlices.length; i < len; i++) {
                 // imageSlices[i].x = originalImage.x + tween.getValue(0) + tween.getValue(0)
-                imageSlices[i].x = originalImage.x + Math.floor(tween.getValue(0) + imageSlices[i].cx)
-                console.log(imageSlices[i].x, imageSlices[i].cx)
+                imageSlices[i].x = originalImage.x + Math.floor(tween.getValue(0) - imageSlices[i].cx)
+                imageSlices[i].setAlpha(Math.random())
+                // console.log(imageSlices[i].x, imageSlices[i].cx)
                 imageSlices[i].cx++;
 
-                if (imageSlices[i].cx > originalImage.width + 1)
+                if (imageSlices[i].cx > 16)
                 {
                     imageSlices[i].cx = 0;
                 }
