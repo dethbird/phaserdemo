@@ -12,7 +12,8 @@ const uncles = [
         originX: null,
         originY: null,
         offsetX: 814,
-        offsetY: 79
+        offsetY: 79,
+        slices: []
     },
     {
         key: 'uncle002',
@@ -23,7 +24,8 @@ const uncles = [
         originX: null,
         originY: null,
         offsetX: 166,
-        offsetY: 107
+        offsetY: 107,
+        slices: []
     },
     {
         key: 'uncle003',
@@ -34,9 +36,15 @@ const uncles = [
         originX: null,
         originY: null,
         offsetX: 1240,
-        offsetY: 61
+        offsetY: 61,
+        slices: []
     }
 ]
+
+let waveTween
+let currentUncle = 0
+
+const sliceHeight = 4
 
 export class Scene1 extends Phaser.Scene {
     preload() {
@@ -69,9 +77,7 @@ export class Scene1 extends Phaser.Scene {
         const _this = this
         let i = 0
         blocks.children.iterate(function (child) {
-            // console.log(child.tint)
             child.setBlendMode(Phaser.BlendModes.OVERLAY)
-            console.log(child.tint)
             _this.tweens.add({
                 targets: child,
                 scaleX: .96,
@@ -92,7 +98,7 @@ export class Scene1 extends Phaser.Scene {
                 i = 0
             }
         })
-        console.log((250).toString(16))
+
         /**
          * Uncles
          */
@@ -106,10 +112,40 @@ export class Scene1 extends Phaser.Scene {
                 uncle.originY + uncle.offsetY,
                 uncle.key
             )
-            // console.log(uncle)
+
+            // create the wave slices
+            for (let y = 0; y < Math.floor(uncle.height / sliceHeight); y++) {
+                let slice = this.add.sprite(
+                    uncle.originX + uncle.offsetX,
+                    uncle.originY + uncle.offsetY,
+                    uncle.key
+                )
+                slice.setOrigin(0.5, 0.5)
+                slice.cx = Phaser.Math.Wrap(y, 0, 32)
+                slice.setCrop(new Phaser.Geom.Rectangle(0, y * sliceHeight, uncle.width, sliceHeight));
+
+                uncle.slices.push(slice);
+            }
+            console.log(uncle)
         }
+
+        /**
+         * Wave tween
+         */
+        waveTween = this.tweens.add({
+            targets: { x: 0, y: 0 },
+            x: 32,
+            y: 0,
+            ease: 'Bounce.easeInOut',
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        })
     }
     update() {
+        /**
+         * Block grid color shift
+         */
         if (Math.random() > 0.985) {
             blocks.children.iterate(function (child) {
                 const r = Math.floor(220 + Math.random() * 35).toString(16)
@@ -118,6 +154,22 @@ export class Scene1 extends Phaser.Scene {
                 child.setTint(`0x${r}${g}${b}`)
             })
         }
+
+        if (waveTween.isPlaying()) {
+            for (const uncle of uncles) {
+                for (var i = 0, len = uncle.slices.length; i < len; i++) {
+                    uncle.slices[i].x = uncle.originX + uncle.offsetX + Math.floor(waveTween.getValue(0) - uncle.slices[i].cx)
+                    uncle.slices[i].setAlpha(Math.random())
+                    
+                    uncle.slices[i].cx++;
+                    if (uncle.slices[i].cx > 16)
+                    {
+                        uncle.slices[i].cx = 0;
+                    }
+                }
+            }
+        }
+
     }
 }
 
