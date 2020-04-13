@@ -1,5 +1,7 @@
 import 'phaser';
 
+let blocks
+
 const uncles = [
     {
         key: 'uncle001',
@@ -10,7 +12,7 @@ const uncles = [
         originX: null,
         originY: null,
         offsetX: 814,
-        offsetY: 49
+        offsetY: 79
     },
     {
         key: 'uncle002',
@@ -21,7 +23,7 @@ const uncles = [
         originX: null,
         originY: null,
         offsetX: 166,
-        offsetY: 77
+        offsetY: 107
     },
     {
         key: 'uncle003',
@@ -45,22 +47,31 @@ export class Scene1 extends Phaser.Scene {
         }
     }
     create() {
+        /**
+         * Background image
+         */
         this.add.image(1920 / 2, 1080 / 2, 'background-image')
 
-        var blocks = this.add.group({ key: 'block', repeat: 2400, setScale: { x: 0, y: 0 } });
+        /**
+         * Blocks
+         */
+        blocks = this.add.group({ key: 'block', repeat: 2400, setScale: { x: 0, y: 0 } })
+        
         Phaser.Actions.GridAlign(blocks.getChildren(), {
             width: 100,
             cellWidth: 50,
             cellHeight: 50,
             x: 0,
             y: 0
-        });
-        var _this = this;
-
-        var i = 0;
-
+        })
+        
+        // tween each block
+        const _this = this
+        let i = 0
         blocks.children.iterate(function (child) {
-
+            // console.log(child.tint)
+            child.setBlendMode(Phaser.BlendModes.OVERLAY)
+            console.log(child.tint)
             _this.tweens.add({
                 targets: child,
                 scaleX: .96,
@@ -74,16 +85,17 @@ export class Scene1 extends Phaser.Scene {
                 yoyo: true,
                 hold: 0,
                 repeatDelay: 250
-            });
+            })
 
-            i++;
-
+            i++
             if (i % 100 === 0) {
-                i = 0;
+                i = 0
             }
-
-        });
-
+        })
+        console.log((250).toString(16))
+        /**
+         * Uncles
+         */
         for (const uncle of uncles) {
             uncle.width = this.textures.get(uncle.key).getSourceImage().width
             uncle.originX = uncle.width / 2
@@ -95,6 +107,16 @@ export class Scene1 extends Phaser.Scene {
                 uncle.key
             )
             // console.log(uncle)
+        }
+    }
+    update() {
+        if (Math.random() > 0.985) {
+            blocks.children.iterate(function (child) {
+                const r = Math.floor(220 + Math.random() * 35).toString(16)
+                const g = Math.floor(220 + Math.random() * 35).toString(16)
+                const b = Math.floor(220 + Math.random() * 35).toString(16)
+                child.setTint(`0x${r}${g}${b}`)
+            })
         }
     }
 }
