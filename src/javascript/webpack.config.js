@@ -5,8 +5,6 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         'production-dependencies': ['phaser'],
-        'test_tween': './pages/test_tween.js',
-        'test_tween_wavy': './pages/test_tween_wavy.js',
         index: './pages/index.js', // keep this last
     },
     output: {
