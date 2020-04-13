@@ -15,8 +15,17 @@ $twigLoader = new \Twig\Loader\FilesystemLoader(APPLICATION_PATH.'src/views');
 global $twig;
 $twig = new \Twig\Environment($twigLoader);
 
-SimpleRouter::get('/', function() {
-    return 'Hello world';
+SimpleRouter::get('/', function () {
+    global $twig;
+    $dirListing = scandir('js/pages');
+    $listing = array_filter($dirListing, function($v, $k) {
+        return !in_array($v, ['.', '..', 'production-dependencies.js']);
+    }, ARRAY_FILTER_USE_BOTH);
+    $listing = array_map(function($v) {
+        return basename($v, '.js');
+    }, $listing);
+
+    echo $twig->render('layouts/items.phtml', ['listing' => $listing]);
 });
 SimpleRouter::get('/item/{name}', function ($name) {
     global $twig;

@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>items</title>
+		<meta name="description" content="phaser tests">
+		<meta name="author" content="dethbird">
+	</head>
+
+	<body>
+        <ul>
+        {% for item in listing %}
+            <li><a href="/item/{{ item }}">{{ item }}</a></li>
+        {% endfor %}
+        </ul>
+	</body>
+</html>

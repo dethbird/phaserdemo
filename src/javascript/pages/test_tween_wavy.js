@@ -44,13 +44,11 @@ export class Scene1 extends Phaser.Scene {
          */
         // image = this.add.image(originalImage.x, originalImage.y, originalImage.key)
         // image.setAlpha(0.4)
-        // console.log(image)
 
         // set original widths and heights from loaded asset
         originalImage.width = this.textures.get(originalImage.key).getSourceImage().width
         originalImage.height = this.textures.get(originalImage.key).getSourceImage().height
 
-        // console.log(originalImage)
         tween = this.tweens.add({
             targets: { x: 0, y: 0 },
             x: 32,
@@ -60,17 +58,15 @@ export class Scene1 extends Phaser.Scene {
             yoyo: true,
             repeat: -1
         })
-        console.log(tween)
 
         // create the wave slices
         for (let y = 0; y < Math.floor(originalImage.height / sliceHeight); y++) {
-            // console.log(y)
-            let slice = this.add.sprite(originalImage.x, originalImage.y, originalImage.key);
+            
+            let slice = this.add.sprite(originalImage.x, originalImage.y, originalImage.key)
             slice.setOrigin(0.5, 0.5)
             slice.cx = Phaser.Math.Wrap(y, 0, 32)
-
             slice.setCrop(new Phaser.Geom.Rectangle(0, y * sliceHeight, originalImage.width, sliceHeight));
-            // console.log(slice)
+
             imageSlices.push(slice);
         }
     }
@@ -82,12 +78,11 @@ export class Scene1 extends Phaser.Scene {
             // image.x = originalImage.x + tween.getValue(0)
             // image.y = originalImage.y + tween.getValue(1)
             for (var i = 0, len = imageSlices.length; i < len; i++) {
-                // imageSlices[i].x = originalImage.x + tween.getValue(0) + tween.getValue(0)
+
                 imageSlices[i].x = originalImage.x + Math.floor(tween.getValue(0) - imageSlices[i].cx)
                 imageSlices[i].setAlpha(Math.random())
-                // console.log(imageSlices[i].x, imageSlices[i].cx)
+                
                 imageSlices[i].cx++;
-
                 if (imageSlices[i].cx > 16)
                 {
                     imageSlices[i].cx = 0;
@@ -105,73 +100,3 @@ const gameConfig = {
 }
 
 new Phaser.Game(gameConfig)
-
-
-/*
-
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update });
-
-function preload() {
-
-    game.load.image('pic', 'assets/pics/jim_sachs_time_crystal.png');
-
-}
-
-var slices;
-var waveform;
-
-var xl;
-var cx = 0;
-
-function create() {
-
-    game.stage.backgroundColor = '#0055ff';
-
-    //  Generate our motion data
-    var motion = { x: 0 };
-    var tween = game.add.tween(motion).to( { x: 200 }, 3000, "Bounce.easeInOut", true, 0, -1, true);
-    waveform = tween.generateData(60);
-
-    xl = waveform.length - 1;
-
-    slices = [];
-
-    var picWidth = game.cache.getImage('pic').width;
-    var picHeight = game.cache.getImage('pic').height;
-
-    var ys = 4;
-
-    for (var y = 0; y < Math.floor(picHeight/ys); y++)
-    {
-        var star = game.add.sprite(300, 100 + (y * ys), 'pic');
-
-        star.crop(new Phaser.Rectangle(0, y * ys, picWidth, ys));
-
-        star.ox = star.x;
-
-        star.cx = game.math.wrap(y * 2, 0, xl);
-
-        star.anchor.set(0.5);
-        slices.push(star);
-    }
-
-}
-
-function update() {
-
-    for (var i = 0, len = slices.length; i < len; i++)
-    {
-        slices[i].x = slices[i].ox + waveform[slices[i].cx].x;
-
-        slices[i].cx++;
-
-        if (slices[i].cx > xl)
-        {
-            slices[i].cx = 0;
-        }
-
-    }
-
-}
-
-*/
