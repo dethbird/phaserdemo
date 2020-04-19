@@ -6,6 +6,9 @@ module.exports = {
     entry: {
         'production-dependencies': ['phaser'],
         'item_uncles': './pages/item_uncles.js',
+        'test_audio': './pages/test_audio.js',
+        'test_emitter_from_config': './pages/test_emitter_from_config.js',
+        'test_parallax': './pages/test_parallax.js',
         'test_tween': './pages/test_tween.js',
         'test_tween_wavy': './pages/test_tween_wavy.js',
         index: './pages/index.js', // keep this last
