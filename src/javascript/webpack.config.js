@@ -5,6 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         'production-dependencies': ['phaser'],
+        'item_1min_song001': './pages/item_1min_song001.js',
         'item_uncles': './pages/item_uncles.js',
         'test_audio': './pages/test_audio.js',
         'test_emitter_from_config': './pages/test_emitter_from_config.js',

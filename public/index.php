@@ -11,6 +11,10 @@ set_include_path(implode(PATH_SEPARATOR, [
 require APPLICATION_PATH.'vendor/autoload.php';
 use Pecee\SimpleRouter\SimpleRouter;
 
+# environment
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $twigLoader = new \Twig\Loader\FilesystemLoader(APPLICATION_PATH.'src/views');
 global $twig;
 $twig = new \Twig\Environment($twigLoader);
@@ -21,6 +25,13 @@ SimpleRouter::get('/', function () {
     $listing = array_filter($dirListing, function($v, $k) {
         return !in_array($v, ['.', '..', 'production-dependencies.js']);
     }, ARRAY_FILTER_USE_BOTH);
+
+    if (getenv('Environment') == 'production') {
+        $listing = array_filter($listing, function($v, $k) {
+            return stripos($v, 'item_')!==false;
+        }, ARRAY_FILTER_USE_BOTH);
+    }
+
     $listing = array_map(function($v) {
         return basename($v, '.js');
     }, $listing);
