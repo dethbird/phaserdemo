@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "collider_test_sprites.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 960,
+				"h": 679
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "collider001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 887,
+						"h": 677
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 887,
+						"h": 677
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 887,
+						"h": 677
+					}
+				},
+				{
+					"filename": "ball.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 69
+					},
+					"frame": {
+						"x": 890,
+						"y": 1,
+						"w": 69,
+						"h": 69
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:0cd7bc37883f1080db7741235fa84591:63f4f02c54b84cef51a5cb15e5418e26:e9e9f646e491dce64e7d67deea1f5162$"
+	}
+}

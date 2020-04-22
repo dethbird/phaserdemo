@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "test_parallax/test_parallax.006.png",
+					"filename": "test_parallax.006.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "test_parallax/test_parallax.004.png",
+					"filename": "test_parallax.004.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "test_parallax/test_parallax.003.png",
+					"filename": "test_parallax.003.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "test_parallax/test_parallax.002.png",
+					"filename": "test_parallax.002.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "test_parallax/test_parallax.005.png",
+					"filename": "test_parallax.005.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "test_parallax/test_parallax.001.png",
+					"filename": "test_parallax.001.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -141,6 +141,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:a7979ec1000c38fb9d6dce1190c22078:7bf9c1f35e582e17a935ca0053740ac0:6b6ec2cbd8e36f3f3e4dd3417b871c98$"
+		"smartupdate": "$TexturePacker:SmartUpdate:a82794c5b666001ec5a8e7a476e4adc0:7bf9c1f35e582e17a935ca0053740ac0:6b6ec2cbd8e36f3f3e4dd3417b871c98$"
 	}
 }
