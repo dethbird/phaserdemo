@@ -10,10 +10,6 @@ const config = {
     width: 1920,
     height: 1080
 }
-/**
- * Balls array
- */
-let balls = []
 export class Scene1 extends Phaser.Scene {
     preload() {
         

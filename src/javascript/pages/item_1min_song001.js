@@ -37,6 +37,10 @@ const configs = {
     totalHeight: 1080 * 4,
     totalWidth: 1920 * 16
 }
+/**
+ * Contains physics properties for corresponding sprites
+ */
+let collider_shapes
 let inputs = {
     spacebar: null, // controls emitters
     keyP: null // music play / pause
@@ -45,8 +49,15 @@ let inputs = {
 export class Scene1 extends Phaser.Scene {
     
     preload() {
+        // load hanging shards
         this.load.atlas('shards', '/atlas/test_parallax.png', '/atlas/test_parallax.json')
+        // load audio
         this.load.audio('song', '/audio/2020-04-15.mp3')
+
+        // load collision sprites
+        this.load.atlas('collider_sprites', '/physics/collider_test/collider_test_sprites.png', '/physics/collider_test/collider_test_sprites.json')
+        // load collision shapes
+        this.load.json('collider_shapes', '/physics/collider_test/collider_test_shapes.json')
     }
 
     create() {
@@ -62,12 +73,14 @@ export class Scene1 extends Phaser.Scene {
             up: cursors.up,
             down: cursors.down,
             acceleration: 0.04,
-            drag: 0.0005,
-            maxSpeed: 0.7
+            drag: 0.001,
+            maxSpeed: 2
         }
 
+        // setup keyboard controls
         controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig)
 
+        // camera initial position and bounds
         this.cameras.main.setBounds(0, 0, configs.totalWidth, configs.totalHeight)
         this.cameras.main.pan(0, configs.totalHeight - 1700, 0)
 
@@ -76,6 +89,7 @@ export class Scene1 extends Phaser.Scene {
          */
         inputs.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         inputs.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
+        this.input.mouse.capture = true
 
         /**
          * The song
@@ -83,13 +97,13 @@ export class Scene1 extends Phaser.Scene {
         music = this.sound.add('song')
 
         /**
-         * Graphics managers
+         * Graphics managers for indicators
          */
         graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xff0099 } })
         graphicsScroll = this.add.graphics({ lineStyle: { width: 2, color: 0x0099ff } })
 
         /**
-         * Shards
+         * Hanging shards
          */
         shards = this.add.group()
         let frames = this.textures.get('shards').getFrameNames()
@@ -108,12 +122,24 @@ export class Scene1 extends Phaser.Scene {
 
             image.setAngle(Phaser.Math.Between(0, 359))
             shards.add(image)
-        }        
+        }
+
+        // Position the static colliders
+        collider_shapes = this.cache.json.get('collider_shapes')
+
+        const collider001 = this.matter.add.sprite(1960, 3860, 'collider_sprites', 'collider001.png', { shape: collider_shapes.collider001 })
+        collider001.setDepth(1)
+        collider001.setAlpha(.25)
     }
 
     update(time, delta) {
+
         controls.update(delta)
+        
+        // rotate the hanging shards
         Phaser.Actions.Rotate(shards.getChildren(), 0.0005)
+               
+        // handle play / pause
         if (Phaser.Input.Keyboard.JustDown(inputs.keyP)) {
             if (music.isPlaying) {
                 music.pause()
@@ -126,13 +152,11 @@ export class Scene1 extends Phaser.Scene {
             }
         }
 
-        /**
-         * Update music indicator
-         */
+        
+        // Update music indicator
         if (music.isPlaying) {
             seekPosition += delta
         }
-        
         graphics.clear();
         graphics.lineBetween(
             this.cameras.main.scrollX,
@@ -147,6 +171,21 @@ export class Scene1 extends Phaser.Scene {
             this.cameras.main.scrollX + configs.cameraWidth * (this.cameras.main.scrollX / configs.totalWidth),
             this.cameras.main.scrollY + configs.cameraHeight - 4
         );
+
+        if (Phaser.Input.Keyboard.DownDuration(inputs.spacebar, 5000)) {
+            const ball = this.matter.add.sprite(
+                this.cameras.main.scrollX + this.input.mouse.manager.mousePointer.x,
+                this.cameras.main.scrollY + this.input.mouse.manager.mousePointer.y,
+                'collider_sprites',
+                'ball.png',
+                { shape: collider_shapes.ball }
+            );
+            ball.setDepth(1.1)
+            ball.setBlendMode(Phaser.BlendModes.ADD)
+            ball.setTint(0xff0099)
+            ball.setScale(0.4 + (Math.random() * 0.6))
+            setTimeout(() => { ball.destroy() }, 5000)
+        }
     }
 }
 
@@ -154,7 +193,13 @@ const gameConfig = {
     backgroundColor: '#000',
     width: 1920,
     height: 1080,
-    scene: Scene1
+    scene: Scene1,
+    physics: {
+        default: 'matter',
+        matter: {
+            debug: false
+        }
+    }
 }
 
 new Phaser.Game(gameConfig)
