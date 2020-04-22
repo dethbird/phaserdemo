@@ -129,7 +129,6 @@ export class Scene1 extends Phaser.Scene {
 
         const collider001 = this.matter.add.sprite(1960, 3860, 'collider_sprites', 'collider001.png', { shape: collider_shapes.collider001 })
         collider001.setDepth(1)
-        collider001.setAlpha(.25)
     }
 
     update(time, delta) {
@@ -174,17 +173,19 @@ export class Scene1 extends Phaser.Scene {
 
         if (Phaser.Input.Keyboard.DownDuration(inputs.spacebar, 5000)) {
             const ball = this.matter.add.sprite(
-                this.cameras.main.scrollX + this.input.mouse.manager.mousePointer.x,
-                this.cameras.main.scrollY + this.input.mouse.manager.mousePointer.y,
+                // this.cameras.main.scrollX + this.input.mouse.manager.mousePointer.x,
+                // this.cameras.main.scrollY + this.input.mouse.manager.mousePointer.y,
+                this.cameras.main.scrollX + configs.cameraWidth / 2 - 600 + Math.random() * 1200,
+                this.cameras.main.scrollY - Math.random() * 100,
                 'collider_sprites',
                 'ball.png',
                 { shape: collider_shapes.ball }
             );
             ball.setDepth(1.1)
             ball.setBlendMode(Phaser.BlendModes.ADD)
-            ball.setTint(0xff0099)
-            ball.setScale(0.4 + (Math.random() * 0.6))
-            setTimeout(() => { ball.destroy() }, 5000)
+            ball.setTint(Math.random() < 0.95 ? 0xff0099 : 0x9900cc)
+            ball.setScale(0.35 + (Math.random() * 0.55))
+            setTimeout(() => { ball.destroy() }, 8000)
         }
     }
 }

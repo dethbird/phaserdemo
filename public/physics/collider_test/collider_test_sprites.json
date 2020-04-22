@@ -4,8 +4,8 @@
 			"image": "collider_test_sprites.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 960,
-				"h": 679
+				"w": 1284,
+				"h": 922
 			},
 			"scale": 1,
 			"frames": [
@@ -14,20 +14,20 @@
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 887,
-						"h": 677
+						"w": 1211,
+						"h": 920
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 887,
-						"h": 677
+						"w": 1211,
+						"h": 920
 					},
 					"frame": {
 						"x": 1,
 						"y": 1,
-						"w": 887,
-						"h": 677
+						"w": 1211,
+						"h": 920
 					}
 				},
 				{
@@ -45,7 +45,7 @@
 						"h": 69
 					},
 					"frame": {
-						"x": 890,
+						"x": 1214,
 						"y": 1,
 						"w": 69,
 						"h": 69
@@ -57,6 +57,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:b7cc8eb9dedc7d35f94729496b4b27da:f9632415de4de03579506135b9c6ae30:e9e9f646e491dce64e7d67deea1f5162$"
+		"smartupdate": "$TexturePacker:SmartUpdate:6cdef6cbf9c6f8e0a9e987886a974937:f12c63587a3c01a5ae89b56c025d8f43:e9e9f646e491dce64e7d67deea1f5162$"
 	}
 }
