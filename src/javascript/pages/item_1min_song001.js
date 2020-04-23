@@ -40,7 +40,7 @@ const configs = {
 /**
  * Contains physics properties for corresponding sprites
  */
-let collider_shapes
+let props_shapes
 let inputs = {
     spacebar: null, // controls emitters
     keyP: null // music play / pause
@@ -50,14 +50,14 @@ export class Scene1 extends Phaser.Scene {
     
     preload() {
         // load hanging shards
-        this.load.atlas('shards', '/atlas/test_parallax.png', '/atlas/test_parallax.json')
+        this.load.atlas('shards', '/atlas/1_min_song001/hanging.png', '/atlas/1_min_song001/hanging.json')
         // load audio
         this.load.audio('song', '/audio/2020-04-15.mp3')
 
-        // load collision sprites
-        this.load.atlas('collider_sprites', '/physics/collider_test/collider_test_sprites.png', '/physics/collider_test/collider_test_sprites.json')
-        // load collision shapes
-        this.load.json('collider_shapes', '/physics/collider_test/collider_test_shapes.json')
+        // load props sprites
+        this.load.atlas('props_sprites', '/atlas/1_min_song001/props.png', '/atlas/1_min_song001/props.json')
+        // load props shapes
+        this.load.json('props_shapes', '/atlas/1_min_song001/props_physics.json')
     }
 
     create() {
@@ -124,11 +124,11 @@ export class Scene1 extends Phaser.Scene {
             shards.add(image)
         }
 
-        // Position the static colliders
-        collider_shapes = this.cache.json.get('collider_shapes')
+        // Position the props
+        props_shapes = this.cache.json.get('props_shapes')
 
-        const collider001 = this.matter.add.sprite(1960, 3860, 'collider_sprites', 'collider001.png', { shape: collider_shapes.collider001 })
-        collider001.setDepth(1)
+        const bounds001 = this.matter.add.sprite(1960, 3860, 'props_sprites', 'bounds001.png', { shape: props_shapes.bounds001 })
+        bounds001.setDepth(1)
     }
 
     update(time, delta) {
@@ -171,15 +171,14 @@ export class Scene1 extends Phaser.Scene {
             this.cameras.main.scrollY + configs.cameraHeight - 4
         );
 
+        // drop "particles"
         if (Phaser.Input.Keyboard.DownDuration(inputs.spacebar, 5000)) {
             const ball = this.matter.add.sprite(
-                // this.cameras.main.scrollX + this.input.mouse.manager.mousePointer.x,
-                // this.cameras.main.scrollY + this.input.mouse.manager.mousePointer.y,
                 this.cameras.main.scrollX + configs.cameraWidth / 2 - 600 + Math.random() * 1200,
                 this.cameras.main.scrollY - Math.random() * 100,
-                'collider_sprites',
+                'props_sprites',
                 'ball.png',
-                { shape: collider_shapes.ball }
+                { shape: props_shapes.ball }
             );
             ball.setDepth(1.1)
             ball.setBlendMode(Phaser.BlendModes.ADD)

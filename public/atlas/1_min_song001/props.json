@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "props.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1166,
+				"h": 936
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "bounds001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1093,
+						"h": 934
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1093,
+						"h": 934
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 1093,
+						"h": 934
+					}
+				},
+				{
+					"filename": "ball.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 69
+					},
+					"frame": {
+						"x": 1096,
+						"y": 1,
+						"w": 69,
+						"h": 69
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:7d9088247f214a5c691b364db92b0412:f80c3a28152e5eeaa73a4978ac6dc069:f4c39b94f5b79b4c461da96ae5609d50$"
+	}
+}
