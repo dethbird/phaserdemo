@@ -45,19 +45,69 @@ let inputs = {
     spacebar: null, // controls emitters
     keyP: null // music play / pause
 }
+/**
+ * Character Bounds
+ */
+let bounds = {
+    'bounds001.png' : {
+        x: 1960,
+        y: 3820,
+        matterSprite: undefined
+    }
+}
+
+/**
+ * Character flickering settings
+ */
+let waveTween
+const sliceHeight = 4
+
+/**
+ * Characters
+ */
+let currentCharacterIndex = 0
+const characters = {
+    'character001.001.png' : {
+        boundsKey: 'bounds001.png',
+        boundsOffsetX: 215,
+        boundsOffsetY: 70,
+        sprite: undefined,
+        slices: []
+    },
+    'character001.002.png' : {
+        boundsKey: 'bounds001.png',
+        boundsOffsetX: 50,
+        boundsOffsetY: -280,
+        sprite: undefined,
+        slices: []
+    },
+    'character001.003.png' : {
+        boundsKey: 'bounds001.png',
+        boundsOffsetX: -210,
+        boundsOffsetY: 118,
+        sprite: undefined,
+        slices: []
+    }
+}
 
 export class Scene1 extends Phaser.Scene {
     
     preload() {
+        
         // load hanging shards
         this.load.atlas('shards', '/atlas/1_min_song001/hanging.png', '/atlas/1_min_song001/hanging.json')
+        
         // load audio
         this.load.audio('song', '/audio/2020-04-15.mp3')
 
         // load props sprites
         this.load.atlas('props_sprites', '/atlas/1_min_song001/props.png', '/atlas/1_min_song001/props.json')
+        
         // load props shapes
         this.load.json('props_shapes', '/atlas/1_min_song001/props_physics.json')
+
+        // load character sprites
+        this.load.atlas('character_sprites', '/atlas/1_min_song001/characters.png', '/atlas/1_min_song001/characters.json')
     }
 
     create() {
@@ -127,8 +177,58 @@ export class Scene1 extends Phaser.Scene {
         // Position the props
         props_shapes = this.cache.json.get('props_shapes')
 
-        const bounds001 = this.matter.add.sprite(1960, 3860, 'props_sprites', 'bounds001.png', { shape: props_shapes.bounds001 })
-        bounds001.setDepth(1)
+        // position the bounds
+        for (const boundsKey of Object.keys(bounds)) {
+            let matterSprite = this.matter.add.sprite(
+                bounds[boundsKey].x,
+                bounds[boundsKey].y,
+                'props_sprites',
+                boundsKey,
+                { shape: props_shapes[boundsKey.replace('.png', '')] })
+            matterSprite.setDepth(1)
+            bounds[boundsKey].matterSprite = matterSprite
+        }
+
+        // Position the characters
+        const characterFrameNames = this.textures.get('character_sprites').getFrameNames()
+        for (const charFrame of characterFrameNames) {
+            let character = characters[charFrame]
+
+            // base sprite
+            character.sprite = this.add.image(
+                bounds[character.boundsKey].matterSprite.x + character.boundsOffsetX,
+                bounds[character.boundsKey].matterSprite.y + character.boundsOffsetY,
+                'character_sprites',
+                charFrame)
+            character.sprite.setDepth(2)
+
+            // sliced up sprite
+            for (let y = 0; y < Math.floor(character.sprite.height / sliceHeight); y++) {
+                let slice = this.add.sprite(
+                    character.sprite.x,
+                    character.sprite.y,
+                    'character_sprites',
+                    charFrame)
+                slice.setDepth(2.1)
+                slice.setBlendMode(Phaser.BlendModes.ADD)
+                slice.cx = Phaser.Math.Wrap(y, 0, 24)
+                slice.setCrop(new Phaser.Geom.Rectangle(0, y * sliceHeight, character.sprite.width, sliceHeight));
+                character.slices.push(slice);
+            }
+        }
+
+        /**
+         * Wave tween
+         */
+        waveTween = this.tweens.add({
+            targets: { x: 0, y: 0 },
+            x: 24,
+            y: 0,
+            ease: 'Bounce.easeInOut',
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        })
     }
 
     update(time, delta) {
@@ -185,6 +285,49 @@ export class Scene1 extends Phaser.Scene {
             ball.setTint(Math.random() < 0.95 ? 0xff0099 : 0x9900cc)
             ball.setScale(0.35 + (Math.random() * 0.55))
             setTimeout(() => { ball.destroy() }, 8000)
+        }
+
+        // Wave animation
+        let characterKeys = Object.keys(characters)
+        if (waveTween.isPlaying()) {
+            for (var c = 0, len = characterKeys.length; c < len; c++) {
+                const character = characters[characterKeys[c]]
+                if (currentCharacterIndex == c) {
+                    character.sprite.setAlpha(0.1)
+                    for (var i = 0, len = character.slices.length; i < len; i++) {
+                        character.slices[i].x = character.sprite.x + Math.floor(waveTween.getValue(0) - character.slices[i].cx)
+                        character.slices[i].setAlpha(0.3 + Math.random())
+                        
+                        character.slices[i].cx++;
+                        if (character.slices[i].cx > 12)
+                        {
+                            character.slices[i].cx = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        const changePercent = Math.random()
+        if (changePercent > 0.80) {
+            if (changePercent > 0.80 && changePercent < 0.90) {
+                if (currentCharacterIndex < characterKeys.length) {
+                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(1)
+                    for (var i = 0, len = characters[characterKeys[currentCharacterIndex]].slices.length; i < len; i++) {
+                        characters[characterKeys[currentCharacterIndex]].slices[i].setAlpha(0)
+                    }
+                }
+                currentCharacterIndex = Math.floor(Math.random() * characterKeys.length)
+            }
+            if (changePercent > 0.90 && changePercent <= 1) {
+                if (currentCharacterIndex < characterKeys.length) {
+                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(1)
+                    for (var i = 0, len = characters[characterKeys[currentCharacterIndex]].slices.length; i < len; i++) {
+                        characters[characterKeys[currentCharacterIndex]].slices[i].setAlpha(0)
+                    }
+                }
+                currentCharacterIndex = characterKeys.length + 1
+            }
         }
     }
 }
