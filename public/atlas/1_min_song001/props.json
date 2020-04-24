@@ -4,8 +4,8 @@
 			"image": "props.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1166,
-				"h": 936
+				"w": 1372,
+				"h": 1847
 			},
 			"scale": 1,
 			"frames": [
@@ -28,6 +28,27 @@
 						"y": 1,
 						"w": 1093,
 						"h": 934
+					}
+				},
+				{
+					"filename": "bounds002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1370,
+						"h": 909
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1370,
+						"h": 909
+					},
+					"frame": {
+						"x": 1,
+						"y": 937,
+						"w": 1370,
+						"h": 909
 					}
 				},
 				{
@@ -57,6 +78,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:7d9088247f214a5c691b364db92b0412:f80c3a28152e5eeaa73a4978ac6dc069:f4c39b94f5b79b4c461da96ae5609d50$"
+		"smartupdate": "$TexturePacker:SmartUpdate:b0e8e05ba9414819d4f10a87ac64ebcb:eccea2158a2d3d89299af1ef78c933d7:f4c39b94f5b79b4c461da96ae5609d50$"
 	}
 }

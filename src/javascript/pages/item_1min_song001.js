@@ -53,6 +53,11 @@ let bounds = {
         x: 1960,
         y: 3820,
         matterSprite: undefined
+    },
+    'bounds002.png' : {
+        x: 3960,
+        y: 3620,
+        matterSprite: undefined
     }
 }
 
@@ -85,6 +90,27 @@ const characters = {
         boundsKey: 'bounds001.png',
         boundsOffsetX: -210,
         boundsOffsetY: 118,
+        sprite: undefined,
+        slices: []
+    },
+    'character002.001.png' : {
+        boundsKey: 'bounds002.png',
+        boundsOffsetX: 425,
+        boundsOffsetY: -10,
+        sprite: undefined,
+        slices: []
+    },
+    'character002.002.png' : {
+        boundsKey: 'bounds002.png',
+        boundsOffsetX: -325,
+        boundsOffsetY: -130,
+        sprite: undefined,
+        slices: []
+    },
+    'character002.003.png' : {
+        boundsKey: 'bounds002.png',
+        boundsOffsetX: 15,
+        boundsOffsetY: 160,
         sprite: undefined,
         slices: []
     }
@@ -201,6 +227,7 @@ export class Scene1 extends Phaser.Scene {
                 'character_sprites',
                 charFrame)
             character.sprite.setDepth(2)
+            character.sprite.setBlendMode(Phaser.BlendModes.SCREEN)
 
             // sliced up sprite
             for (let y = 0; y < Math.floor(character.sprite.height / sliceHeight); y++) {
