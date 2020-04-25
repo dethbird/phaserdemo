@@ -12,7 +12,8 @@
     "watch": "webpack --config webpack.config.js --mode development --progress --watch"
   },
   "dependencies": {
-    "phaser": "3.22.0"
+    "phaser": "3.22.0",
+    "phaser3-rex-plugins": "^1.1.13"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
