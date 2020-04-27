@@ -80,86 +80,105 @@ const sliceHeight = 4
 /**
  * Characters
  */
-let currentCharacterIndex = 0
-const characters = {
-    'character001.001.png' : {
-        boundsKey: 'bounds001.png',
-        boundsOffsetX: 215,
-        boundsOffsetY: 70,
-        sprite: undefined,
-        slices: []
+let characterSpriteGroups = [
+    {
+        currentSprite: 0,
+        sprites: {
+            'character001.001.png' : {
+                boundsKey: 'bounds001.png',
+                boundsOffsetX: 215,
+                boundsOffsetY: 70,
+                sprite: undefined,
+                slices: []
+            },
+            'character001.002.png' : {
+                boundsKey: 'bounds001.png',
+                boundsOffsetX: 50,
+                boundsOffsetY: -280,
+                sprite: undefined,
+                slices: []
+            },
+            'character001.003.png' : {
+                boundsKey: 'bounds001.png',
+                boundsOffsetX: -210,
+                boundsOffsetY: 118,
+                sprite: undefined,
+                slices: []
+            }
+        }
     },
-    'character001.002.png' : {
-        boundsKey: 'bounds001.png',
-        boundsOffsetX: 50,
-        boundsOffsetY: -280,
-        sprite: undefined,
-        slices: []
+    {
+        currentSprite: 0,
+        sprites: {
+            'character002.001.png' : {
+                boundsKey: 'bounds002.png',
+                boundsOffsetX: 425,
+                boundsOffsetY: -10,
+                sprite: undefined,
+                slices: []
+            },
+            'character002.002.png' : {
+                boundsKey: 'bounds002.png',
+                boundsOffsetX: -325,
+                boundsOffsetY: -130,
+                sprite: undefined,
+                slices: []
+            },
+            'character002.003.png' : {
+                boundsKey: 'bounds002.png',
+                boundsOffsetX: 15,
+                boundsOffsetY: 160,
+                sprite: undefined,
+                slices: []
+            }
+        }
     },
-    'character001.003.png' : {
-        boundsKey: 'bounds001.png',
-        boundsOffsetX: -210,
-        boundsOffsetY: 118,
-        sprite: undefined,
-        slices: []
+    {
+        currentSprite: 0,
+        sprites: {
+            'character003.001.png' : {
+                boundsKey: 'bounds003.png',
+                boundsOffsetX: 120,
+                boundsOffsetY: -105,
+                sprite: undefined,
+                slices: []
+            },
+            'character003.002.png' : {
+                boundsKey: 'bounds003.png',
+                boundsOffsetX: 445,
+                boundsOffsetY: -70,
+                sprite: undefined,
+                slices: []
+            },
+            'character003.003.png' : {
+                boundsKey: 'bounds003.png',
+                boundsOffsetX: -245,
+                boundsOffsetY: 65,
+                sprite: undefined,
+                slices: []
+            }
+        }
     },
-    'character002.001.png' : {
-        boundsKey: 'bounds002.png',
-        boundsOffsetX: 425,
-        boundsOffsetY: -10,
-        sprite: undefined,
-        slices: []
-    },
-    'character002.002.png' : {
-        boundsKey: 'bounds002.png',
-        boundsOffsetX: -325,
-        boundsOffsetY: -130,
-        sprite: undefined,
-        slices: []
-    },
-    'character002.003.png' : {
-        boundsKey: 'bounds002.png',
-        boundsOffsetX: 15,
-        boundsOffsetY: 160,
-        sprite: undefined,
-        slices: []
-    },
-    'character003.001.png' : {
-        boundsKey: 'bounds003.png',
-        boundsOffsetX: 120,
-        boundsOffsetY: -105,
-        sprite: undefined,
-        slices: []
-    },
-    'character003.002.png' : {
-        boundsKey: 'bounds003.png',
-        boundsOffsetX: 445,
-        boundsOffsetY: -70,
-        sprite: undefined,
-        slices: []
-    },
-    'character003.003.png' : {
-        boundsKey: 'bounds003.png',
-        boundsOffsetX: -245,
-        boundsOffsetY: 65,
-        sprite: undefined,
-        slices: []
-    },
-    'character004.001.png' : {
-        boundsKey: 'bounds004.png',
-        boundsOffsetX: -420,
-        boundsOffsetY: 35,
-        sprite: undefined,
-        slices: []
-    },
-    'character004.002.png' : {
-        boundsKey: 'bounds004.png',
-        boundsOffsetX: 395,
-        boundsOffsetY: -50,
-        sprite: undefined,
-        slices: []
+    {
+        currentSprite: 0,
+        sprites: {
+            'character004.001.png' : {
+                boundsKey: 'bounds004.png',
+                boundsOffsetX: -420,
+                boundsOffsetY: 35,
+                sprite: undefined,
+                slices: []
+            },
+            'character004.002.png' : {
+                boundsKey: 'bounds004.png',
+                boundsOffsetX: 395,
+                boundsOffsetY: -50,
+                sprite: undefined,
+                slices: []
+            }
+        }
     }
-}
+]
 
 export class Scene1 extends Phaser.Scene {
     
@@ -261,33 +280,34 @@ export class Scene1 extends Phaser.Scene {
         }
 
         // Position the characters
-        const characterFrameNames = this.textures.get('character_sprites').getFrameNames()
-        for (const charFrame of characterFrameNames) {
-            let character = characters[charFrame]
-
-            // base sprite
-            character.sprite = this.add.image(
-                bounds[character.boundsKey].matterSprite.x + character.boundsOffsetX,
-                bounds[character.boundsKey].matterSprite.y + character.boundsOffsetY,
-                'character_sprites',
-                charFrame)
-            character.sprite.setDepth(2)
-            character.sprite.setBlendMode(Phaser.BlendModes.SCREEN)
-
-            // sliced up sprite
-            for (let y = 0; y < Math.floor(character.sprite.height / sliceHeight); y++) {
-                let slice = this.add.sprite(
-                    character.sprite.x,
-                    character.sprite.y,
+        characterSpriteGroups.forEach(group => {
+            const characterFrameNames = Object.keys(group.sprites)
+            for (const charFrame of characterFrameNames) {
+                let character = group.sprites[charFrame]
+                // base sprite
+                character.sprite = this.add.image(
+                    bounds[character.boundsKey].matterSprite.x + character.boundsOffsetX,
+                    bounds[character.boundsKey].matterSprite.y + character.boundsOffsetY,
                     'character_sprites',
                     charFrame)
-                slice.setDepth(2.1)
-                slice.setBlendMode(Phaser.BlendModes.ADD)
-                slice.cx = Phaser.Math.Wrap(y, 0, 24)
-                slice.setCrop(new Phaser.Geom.Rectangle(0, y * sliceHeight, character.sprite.width, sliceHeight));
-                character.slices.push(slice);
+                character.sprite.setDepth(2)
+                character.sprite.setBlendMode(Phaser.BlendModes.SCREEN)
+
+                // sliced up sprite
+                for (let y = 0; y < Math.floor(character.sprite.height / sliceHeight); y++) {
+                    let slice = this.add.sprite(
+                        character.sprite.x,
+                        character.sprite.y,
+                        'character_sprites',
+                        charFrame)
+                    slice.setDepth(2.1)
+                    slice.setBlendMode(Phaser.BlendModes.ADD)
+                    slice.cx = Phaser.Math.Wrap(y, 0, 24)
+                    slice.setCrop(new Phaser.Geom.Rectangle(0, y * sliceHeight, character.sprite.width, sliceHeight));
+                    character.slices.push(slice);
+                }
             }
-        }
+        })
 
         /**
          * Wave tween
@@ -360,47 +380,50 @@ export class Scene1 extends Phaser.Scene {
         }
 
         // Wave animation
-        let characterKeys = Object.keys(characters)
-        if (waveTween.isPlaying()) {
-            for (var c = 0, len = characterKeys.length; c < len; c++) {
-                const character = characters[characterKeys[c]]
-                if (currentCharacterIndex == c) {
-                    character.sprite.setAlpha(0.1)
-                    for (var i = 0, len = character.slices.length; i < len; i++) {
-                        character.slices[i].x = character.sprite.x + Math.floor(waveTween.getValue(0) - character.slices[i].cx)
-                        character.slices[i].setAlpha(0.3 + Math.random())
-                        
-                        character.slices[i].cx++;
-                        if (character.slices[i].cx > 12)
-                        {
-                            character.slices[i].cx = 0;
+        characterSpriteGroups.forEach(group => {
+            const characterKeys = Object.keys(group.sprites)
+            if (waveTween.isPlaying()) {
+                for (var c = 0, len = characterKeys.length; c < len; c++) {
+                    const character = group.sprites[characterKeys[c]]
+                    if (group.currentSprite == c) {
+                        character.sprite.setAlpha(0.1)
+                        for (var i = 0, len = character.slices.length; i < len; i++) {
+                            character.slices[i].x = character.sprite.x + Math.floor(waveTween.getValue(0) - character.slices[i].cx)
+                            character.slices[i].setAlpha(0.3 + Math.random())
+
+                            character.slices[i].cx++;
+                            if (character.slices[i].cx > 12) {
+                                character.slices[i].cx = 0;
+                            }
                         }
                     }
                 }
             }
-        }
+            const changePercent = Math.random()
+            if (changePercent > 0.80) {
+                // change the current sprite
+                if (changePercent > 0.80 && changePercent < 0.90) {
+                    if (group.currentSprite < characterKeys.length) {
+                        group.sprites[characterKeys[group.currentSprite]].sprite.setAlpha(.6)
+                        for (var i = 0, len = group.sprites[characterKeys[group.currentSprite]].slices.length; i < len; i++) {
+                            group.sprites[characterKeys[group.currentSprite]].slices[i].setAlpha(0)
+                        }
+                    }
+                    group.currentSprite = Math.floor(Math.random() * characterKeys.length)
+                }
+                // no sprite is active   
+                if (changePercent > 0.90 && changePercent <= 1) {
+                    if (group.currentSprite < characterKeys.length) {
+                        group.sprites[characterKeys[group.currentSprite]].sprite.setAlpha(.6)
+                        for (var i = 0, len = group.sprites[characterKeys[group.currentSprite]].slices.length; i < len; i++) {
+                            group.sprites[characterKeys[group.currentSprite]].slices[i].setAlpha(0)
+                        }
+                    }
+                    group.currentSprite = characterKeys.length + 1
+                }
+            }
 
-        const changePercent = Math.random()
-        if (changePercent > 0.80) {
-            if (changePercent > 0.80 && changePercent < 0.90) {
-                if (currentCharacterIndex < characterKeys.length) {
-                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(.6)
-                    for (var i = 0, len = characters[characterKeys[currentCharacterIndex]].slices.length; i < len; i++) {
-                        characters[characterKeys[currentCharacterIndex]].slices[i].setAlpha(0)
-                    }
-                }
-                currentCharacterIndex = Math.floor(Math.random() * characterKeys.length)
-            }
-            if (changePercent > 0.90 && changePercent <= 1) {
-                if (currentCharacterIndex < characterKeys.length) {
-                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(.6)
-                    for (var i = 0, len = characters[characterKeys[currentCharacterIndex]].slices.length; i < len; i++) {
-                        characters[characterKeys[currentCharacterIndex]].slices[i].setAlpha(0)
-                    }
-                }
-                currentCharacterIndex = characterKeys.length + 1
-            }
-        }
+        })
     }
 }
 
