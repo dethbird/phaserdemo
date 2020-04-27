@@ -4,8 +4,8 @@
 			"image": "props.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1372,
-				"h": 1847
+				"w": 1403,
+				"h": 3633
 			},
 			"scale": 1,
 			"frames": [
@@ -31,24 +31,24 @@
 					}
 				},
 				{
-					"filename": "bounds002.png",
+					"filename": "bounds003.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 1370,
-						"h": 909
+						"w": 1250,
+						"h": 912
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 1370,
-						"h": 909
+						"w": 1250,
+						"h": 912
 					},
 					"frame": {
 						"x": 1,
 						"y": 937,
-						"w": 1370,
-						"h": 909
+						"w": 1250,
+						"h": 912
 					}
 				},
 				{
@@ -71,6 +71,48 @@
 						"w": 69,
 						"h": 69
 					}
+				},
+				{
+					"filename": "bounds002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1370,
+						"h": 909
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1370,
+						"h": 909
+					},
+					"frame": {
+						"x": 1,
+						"y": 1851,
+						"w": 1370,
+						"h": 909
+					}
+				},
+				{
+					"filename": "bounds004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1401,
+						"h": 870
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1401,
+						"h": 870
+					},
+					"frame": {
+						"x": 1,
+						"y": 2762,
+						"w": 1401,
+						"h": 870
+					}
 				}
 			]
 		}
@@ -78,6 +120,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:b0e8e05ba9414819d4f10a87ac64ebcb:eccea2158a2d3d89299af1ef78c933d7:f4c39b94f5b79b4c461da96ae5609d50$"
+		"smartupdate": "$TexturePacker:SmartUpdate:b1f0f6a100d43ba63403c6d20567f15f:076952f26ac639bd08e60c03466c4ada:f4c39b94f5b79b4c461da96ae5609d50$"
 	}
 }

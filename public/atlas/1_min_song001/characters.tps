@@ -88,9 +88,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>4096</int>
             <key>height</key>
-            <int>2048</int>
+            <int>4096</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -271,6 +271,81 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">characters/character003.001.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>148,121,295,241</rect>
+                <key>scale9Paddings</key>
+                <rect>148,121,295,241</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">characters/character003.002.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>78,177,156,353</rect>
+                <key>scale9Paddings</key>
+                <rect>78,177,156,353</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">characters/character003.003.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>195,179,389,359</rect>
+                <key>scale9Paddings</key>
+                <rect>195,179,389,359</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">characters/character004.001.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>146,180,291,359</rect>
+                <key>scale9Paddings</key>
+                <rect>146,180,291,359</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">characters/character004.002.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>144,196,288,391</rect>
+                <key>scale9Paddings</key>
+                <rect>144,196,288,391</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -281,7 +356,11 @@
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array/>
+        <array>
+            <string>phaser3-exporter-beta</string>
+            <string>enable-multipack</string>
+            <string>large-max-texture-size</string>
+        </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>

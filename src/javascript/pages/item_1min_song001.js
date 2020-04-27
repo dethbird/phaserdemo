@@ -55,8 +55,18 @@ let bounds = {
         matterSprite: undefined
     },
     'bounds002.png' : {
-        x: 3960,
-        y: 3620,
+        x: 5560,
+        y: 3120,
+        matterSprite: undefined
+    },
+    'bounds003.png' : {
+        x: 9560,
+        y: 3120,
+        matterSprite: undefined
+    },
+    'bounds004.png' : {
+        x: 16600,
+        y: 3120,
         matterSprite: undefined
     }
 }
@@ -111,6 +121,41 @@ const characters = {
         boundsKey: 'bounds002.png',
         boundsOffsetX: 15,
         boundsOffsetY: 160,
+        sprite: undefined,
+        slices: []
+    },
+    'character003.001.png' : {
+        boundsKey: 'bounds003.png',
+        boundsOffsetX: 120,
+        boundsOffsetY: -105,
+        sprite: undefined,
+        slices: []
+    },
+    'character003.002.png' : {
+        boundsKey: 'bounds003.png',
+        boundsOffsetX: 445,
+        boundsOffsetY: -70,
+        sprite: undefined,
+        slices: []
+    },
+    'character003.003.png' : {
+        boundsKey: 'bounds003.png',
+        boundsOffsetX: -245,
+        boundsOffsetY: 65,
+        sprite: undefined,
+        slices: []
+    },
+    'character004.001.png' : {
+        boundsKey: 'bounds004.png',
+        boundsOffsetX: -420,
+        boundsOffsetY: 35,
+        sprite: undefined,
+        slices: []
+    },
+    'character004.002.png' : {
+        boundsKey: 'bounds004.png',
+        boundsOffsetX: 395,
+        boundsOffsetY: -50,
         sprite: undefined,
         slices: []
     }
@@ -339,7 +384,7 @@ export class Scene1 extends Phaser.Scene {
         if (changePercent > 0.80) {
             if (changePercent > 0.80 && changePercent < 0.90) {
                 if (currentCharacterIndex < characterKeys.length) {
-                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(1)
+                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(.6)
                     for (var i = 0, len = characters[characterKeys[currentCharacterIndex]].slices.length; i < len; i++) {
                         characters[characterKeys[currentCharacterIndex]].slices[i].setAlpha(0)
                     }
@@ -348,7 +393,7 @@ export class Scene1 extends Phaser.Scene {
             }
             if (changePercent > 0.90 && changePercent <= 1) {
                 if (currentCharacterIndex < characterKeys.length) {
-                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(1)
+                    characters[characterKeys[currentCharacterIndex]].sprite.setAlpha(.6)
                     for (var i = 0, len = characters[characterKeys[currentCharacterIndex]].slices.length; i < len; i++) {
                         characters[characterKeys[currentCharacterIndex]].slices[i].setAlpha(0)
                     }
